@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Field Incident Queue</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Offline-first operations prototype</p>
+        <h1>Field Incident Queue</h1>
+        <p class="lede">Capture incidents without connectivity, then synchronize safely when the connection returns.</p>
+      </div>
+      <div class="connection-card">
+        <label for="network-mode">Network simulation</label>
+        <select id="network-mode" aria-label="Network simulation">
+          <option value="online">Online</option>
+          <option value="offline">Offline</option>
+          <option value="failing">Online, server failing</option>
+        </select>
+        <button id="sync-now" class="button secondary" type="button">Sync pending</button>
+      </div>
+    </header>
+
+    <section class="panel" aria-labelledby="create-heading">
+      <div class="section-heading">
+        <div><p class="eyebrow">New report</p><h2 id="create-heading">Create an incident</h2></div>
+        <span id="connectivity-badge" class="badge">Online</span>
+      </div>
+      <form id="incident-form">
+        <label>Short description<input id="title" name="title" required maxlength="120" placeholder="e.g. Generator alarm in building 3"></label>
+        <label>Severity<select id="severity" name="severity"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option><option value="critical">Critical</option></select></label>
+        <button class="button primary" type="submit">Save incident</button>
+      </form>
+      <p id="form-hint" class="hint">Incidents created offline are saved on this device and marked pending.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="queue-heading">
+      <div class="section-heading"><div><p class="eyebrow">Durable queue</p><h2 id="queue-heading">Incidents</h2></div><button id="reset-demo" class="text-button" type="button">Reset demo data</button></div>
+      <div id="status-banner" class="status-banner" role="status"></div>
+      <div id="incident-list" class="incident-list" aria-live="polite"></div>
+    </section>
+
+    <footer><span>Client IDs make retries idempotent.</span><span>Local data only · no credentials required</span></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
